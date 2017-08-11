@@ -1,3 +1,6 @@
+#ifndef UTILS
+#define UTILS
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,7 +9,7 @@
 #define TAMANHO_STRING 255
 #ifdef _WIN32
 #include <conio.h>
-#endif 
+#endif
 
 int lerInteiro(char *);
 float lerFloat(char *);
@@ -29,8 +32,12 @@ FILE * criarArquivo(char *);
 }*/
 void limparEntrada()
 {
+
+
 	fflush(stdin);
+    #ifdef linux
 	getchar();
+	#endif
 }
 
 void limparTela()
@@ -83,7 +90,7 @@ void aplicarString(char *destino, char *mensagem)
 	// https://stackoverflow.com/questions/25798977/returning-string-from-c-function
     // static char entrada[255]; impossivel reutilizar sem liberar memoria // alocação dinamica anonima
     char entrada[TAMANHO_STRING];
-    printf("%s\n", mensagem);
+    printf("%s", mensagem);
 	fgets(entrada, TAMANHO_STRING-1, stdin);
 	entrada[strlen(entrada) - 1] = '\0'; //retira \n do fgets()
 	strcpy(destino, entrada);
@@ -91,6 +98,9 @@ void aplicarString(char *destino, char *mensagem)
 
 FILE * criarArquivo(char *nome)
 {
+    #ifdef _WIN32
+    strcat(nome,".txt");
+    #endif // _WIN32
     FILE *arquivo = fopen(nome, "w");
     if (arquivo==NULL)
     {
@@ -102,3 +112,5 @@ FILE * criarArquivo(char *nome)
        return arquivo;
     }
 }
+
+#endif

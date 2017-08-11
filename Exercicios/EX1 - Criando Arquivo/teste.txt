@@ -1,0 +1,12 @@
+###Aluno Matricula No 32032329###
+Nome: jose camargo
+Nota: 10.00
+###Aluno Matricula No 3032###
+Nome: maria joana
+Nota: 9.00
+###Aluno Matricula No 20###
+Nome: pele kaka
+Nota: 5.20
+###Aluno Matricula No 2093###
+Nome: julia maria
+Nota: 5.70

@@ -8,3 +8,13 @@
 	<stdlib.h>
 	<string.h>
 
+1502458183 source:c:\users\aluno\desktop\prg2\prg2-master\exercicios\ex1 - criando arquivo\main.c
+	"utils.h"
+
+1502458881 c:\users\aluno\desktop\prg2\prg2-master\exercicios\ex1 - criando arquivo\utils.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+	<conio.h>
+
