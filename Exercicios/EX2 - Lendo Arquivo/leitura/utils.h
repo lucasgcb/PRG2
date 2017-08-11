@@ -5,31 +5,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-
-#define TAMANHO_STRING 255
 #ifdef _WIN32
 #include <conio.h>
 #endif
+typedef unsigned char bool; //Cria tipo booleano para C
+#define true 1
+#define false 0
+#define TAMANHO_STRING 255
+
+
+
 
 int lerInteiro(char *);
+
 float lerFloat(char *);
+
 void aplicarString(char *, char *);
-//void criarCaminho(char *, char *);
 void limparTela();
 void limparEntrada();
+
 FILE * criarArquivoTexto(char *);
 FILE * abrirArquivoCSV(char *);
 
-/*void criarCaminho(char* entrada, char* nomePasta)
-{
-		#ifdef _WIN32
-		strcat(nomePasta,"\\");
-		#endif
-		#ifdef linux
-		strcat(nomePasta,"/");
-		#endif
-		strcat(entrada,nomePasta);
-}*/
 void limparEntrada()
 {
 	fflush(stdin);
