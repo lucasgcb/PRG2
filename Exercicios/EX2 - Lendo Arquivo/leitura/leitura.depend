@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1502460752 source:c:\users\aluno\desktop\prg2\prg2-master\exercicios\ex2 - lendo arquivo\leitura\main.c
+	<stdio.h>
+	<stdlib.h>
+	"utils.h"
+
+1502461057 c:\users\aluno\desktop\prg2\prg2-master\exercicios\ex2 - lendo arquivo\leitura\utils.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+	<conio.h>
+
