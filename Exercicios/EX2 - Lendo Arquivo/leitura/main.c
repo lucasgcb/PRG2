@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "utils.h"
+#define PRINCIPAL -1
+#define IMPRIMIR 1
+#define BUSCAR 2
+#define SAIR 0
 
+#define ARQUIVOCSV DEFINIR_STRING(medalhas)
 typedef struct medalhas
 {
     int posicao;
@@ -15,9 +19,9 @@ typedef struct medalhas
 void inserirMedalhas(Medalhas * , int , FILE * );
 void lerMedalhas(int, FILE *);
 void imprimirMedalhas(Medalhas *, int);
+int buscarMedalhas(Medalhas *, int);
 void menu();
 Medalhas * alocarStruct(int);
-
 int main()
 {
 	setlocale(LC_CTYPE, "");
@@ -27,28 +31,39 @@ int main()
 	FILE * arquivo;
 	bool sair = false;
 
-	aplicarString(nomeArquivo,"Digite o primeiro nome do arquivo:\n");
+	strcpy(nomeArquivo, ARQUIVOCSV);
 	arquivo = abrirArquivoCSV(nomeArquivo);
-	numeroCompetidores = lerNumeroLinhas(arquivo)-1;
-    Medalhas * competidores = alocarStruct(numeroCompetidores); //menos cabeçalho
-    inserirMedalhas(competidores, numeroCompetidores, arquivo);
-    printf("Numero de competidores: %d", numeroCompetidores);
 	
+	numeroCompetidores = lerNumeroLinhas(arquivo)-1;//menos cabeçalho
+	Medalhas * competidores = alocarStruct(numeroCompetidores); 
+    inserirMedalhas(competidores, numeroCompetidores, arquivo);
+    
 	
 	while(!sair)
 	{
+		menu(PRINCIPAL);
 		switch(lerInteiro("\n#Digite uma opção:\n"))
 		{
-			case 1: imprimirMedalhas(competidores, numeroCompetidores);
+			case IMPRIMIR: 
+					imprimirMedalhas(competidores, numeroCompetidores);
+					esperarInput(NULL);
 					break;
-			case 0: 
+			case BUSCAR:
+					menu(BUSCAR);
+					buscarMedalhas(competidores, numeroCompetidores);
+					esperarInput(NULL);
+					break;
+			case SAIR: 
+					printf("Adeus.\n");
 					sair = true;
 					break;
-			default: printf("Não implementado");
+			default:
+					printf("Não implementado.\n");
+					esperarInput(NULL);
 		}
 	}
     fclose(arquivo);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 
@@ -75,11 +90,16 @@ void inserirMedalhas(Medalhas * competidores, int numeroCompetidores, FILE * arq
 	{
 		if(contador > numeroCompetidores)
 			return;
-		printf("Linha: %s\n", linha);
 		token = strtok(linha,";");
-		printf("Token: %s\n", token);
+		competidores[contador].posicao=atoi(token);
 		token = strtok(NULL,";");
-		printf("Token 2: %s\n", token);
+		strcpy(competidores[contador].nome,token);
+		token = strtok(NULL,";");
+		competidores[contador].ouro=atoi(token);
+		token = strtok(NULL,";");
+		competidores[contador].prata=atoi(token);
+		token = strtok(NULL,";");
+		competidores[contador].bronze=atoi(token);
 		contador++;
 		
 	}
@@ -90,21 +110,52 @@ void imprimirMedalhas(Medalhas * competidores, int numeroCompetidores)
 	int contador;
 	for(contador=0;contador<numeroCompetidores;contador++)
 	{
-		printf("%d %s", contador, competidores[contador].nome);
+		printf("#%d - %s \n ** Ouro: %d\n  ** Prata: %d\n   ** Bronze: %d\n", contador, competidores[contador].nome,
+		competidores[contador].ouro, competidores[contador].prata, competidores[contador].bronze);
 	}
+}
+
+int buscarMedalhas(Medalhas * competidores, int numeroCompetidores)
+{
+	char * sigla;
+	char pesquisa[TAMANHO_STRING];
+	aplicarString(pesquisa, "Entre o nome do competidor ou sua sigla para pesquisar:\n");
+	int contador;
+	for(contador=0;contador<numeroCompetidores;contador++)
+	{
+		int soma = 0;
+		
+		sigla=strtok(competidores[contador].nome,"(");
+		sigla=strtok(NULL, ")");
+			
+		if(strcmp(pesquisa,competidores[contador].nome)==0 || strcmp(pesquisa,sigla)==0)
+		{
+			soma = competidores[contador].ouro + competidores[contador].prata + competidores[contador].bronze;
+			printf("Total de medalhas de %s: \n ** %d", competidores[contador].nome, soma);
+			return soma;
+		}	
+	}
+	printf("O termo %s não retornou resultados.", pesquisa);
+	return 0;
 }
 
 void menu(int tipo)
 {
-    enum tipos{PRINCIPAL = 0, IMPRESSAO = 1, BUSCA = 2};
+	char separador[] = "*************************************";
+	limparTela(); 
     switch(tipo)
     {
         case PRINCIPAL:
-            printf("*************************************");
-            printf("1 - Imprimir Ranking \n");
-            printf("2 - Buscar time\n");
-            printf("0 - Sair");
+            printf("\n%s\n", separador);
+            printf("%d - Imprimir Ranking \n", IMPRIMIR);
+            printf("%d - Buscar time\n", BUSCAR);
+            printf("%d - Sair \n", SAIR);
+            printf("\n%s\n", separador);
             break;
+        case BUSCAR:
+			printf("\n%s\n", separador);
+			printf("Buscar - ");
+			break;
         default: printf("ue");
     }
 }

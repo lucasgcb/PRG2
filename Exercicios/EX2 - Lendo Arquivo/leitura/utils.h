@@ -13,6 +13,9 @@ typedef unsigned char bool; //Cria tipo booleano para C
 #define false 0
 #define TAMANHO_STRING 255
 
+#define DEFINIR_STRING(string) #string
+
+
 
 
 
@@ -23,9 +26,20 @@ float lerFloat(char *);
 void aplicarString(char *, char *);
 void limparTela();
 void limparEntrada();
+void esperarInput(char *);
 
 FILE * criarArquivoTexto(char *);
 FILE * abrirArquivoCSV(char *);
+
+void esperarInput(char *mensagem)
+{
+	if(mensagem==NULL)
+		printf("\nAperte ENTER para continuar...\n");
+	else
+		printf("\n%s\n", mensagem);
+		
+	getchar();
+}
 
 void limparEntrada()
 {
@@ -50,6 +64,8 @@ int lerNumeroLinhas(FILE *arquivo)
     rewind(arquivo);
     return linhas;
 }
+
+
 
 void limparTela()
 {
@@ -99,7 +115,7 @@ float lerFloat(char *mensagem)
 void aplicarString(char *destino, char *mensagem)
 {
 	// https://stackoverflow.com/questions/25798977/returning-string-from-c-function
-    // static char entrada[255]; impossivel reutilizar sem liberar memoria // alocação dinamica anonima
+    // static char entrada[255]; impossivel reutilizar sem liberar memoria ou usando alocação dinamica anonima
     char entrada[TAMANHO_STRING];
     printf("%s", mensagem);
 	fgets(entrada, TAMANHO_STRING-1, stdin);
@@ -130,7 +146,7 @@ FILE * abrirArquivoCSV(char *nome)
     FILE *arquivo = fopen(nome, "r");
     if (arquivo==NULL)
     {
-        perror("Não foi possível criar o arquivo");
+        perror("Não foi possível abrir o arquivo");
         exit(EXIT_FAILURE);
     }
     else
