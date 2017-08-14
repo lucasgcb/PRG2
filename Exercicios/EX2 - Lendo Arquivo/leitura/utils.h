@@ -8,6 +8,7 @@
 #ifdef _WIN32
 #include <conio.h>
 #endif
+
 typedef unsigned char bool; //Cria tipo booleano para C
 #define true 1
 #define false 0
@@ -20,6 +21,7 @@ typedef unsigned char bool; //Cria tipo booleano para C
 
 
 int lerInteiro(char *);
+int regex(char * string, char caractere1, char caractere2);
 
 float lerFloat(char *);
 
@@ -85,8 +87,8 @@ int lerInteiro(char *mensagem)
 	retorno = scanf("%d", &numero);
 	while(retorno!=1)
 	{
-		limparTela();
 		limparEntrada();
+		printf("%s", "Valor invalido. Tente novamente. \n");
 		printf("%s", mensagem);
 		retorno = scanf("%d", &numero);
 	}
@@ -138,6 +140,40 @@ FILE * criarArquivoTexto(char *nome)
     {
         return arquivo;
     }
+}
+
+int regex(char * string, char caractere1, char caractere2) //Verifica vezes que caractere 1 é seguido por caractere 2 em uma string
+{
+	int i=0;
+	int casos=0;
+	for(i=0; i<strlen(string); i++)
+	{
+		if(string[i]==caractere1)
+		{
+			if(string[i+1]==caractere2)
+			{
+				casos++;
+			}
+			else
+				continue;
+		}
+	}
+	return casos;
+}
+
+
+int contarCaracteres(char * string, char caractere) //Verifica vezes que caractere aparece
+{
+	int i=0;
+	int casos=0;
+	for(i=0; i<strlen(string); i++)
+	{
+		if(string[i]==caractere)
+		{
+			casos++;
+		}
+	}
+	return casos;
 }
 
 FILE * abrirArquivoCSV(char *nome)
