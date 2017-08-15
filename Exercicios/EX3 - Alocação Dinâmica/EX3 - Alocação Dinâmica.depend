@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1502806413 source:c:\users\aluno\desktop\prg2-master\exercicios\ex3 - alocação dinâmica\main.c
+	"utils.h"
+
+1502722425 c:\users\aluno\desktop\prg2-master\exercicios\ex3 - alocação dinâmica\utils.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+	<conio.h>
+
