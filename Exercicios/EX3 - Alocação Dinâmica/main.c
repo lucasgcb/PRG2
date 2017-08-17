@@ -3,6 +3,7 @@ float somarValores(float * , int );
 float somarDiferenca(float * , int , float );
 void inserirValores(float * , int );
 void imprimirValores(float * , int );
+void escreverImpares(float*, int);
 int main()
 {
    setlocale(LC_CTYPE, "");
@@ -13,8 +14,9 @@ int main()
 
    posicoes = lerInteiro("Entre o número de posições:\n");
    float* numeros = malloc(sizeof(float) * posicoes);
-   inserirValores(numeros, posicoes);
-   //imprimirValores(numeros, posicoes);
+   escreverImpares(numeros,posicoes);
+   //inserirValores(numeros, posicoes);
+   imprimirValores(numeros, posicoes);
 
    media = (somarValores(numeros, posicoes)) / posicoes;
    varianca = (somarDiferenca(numeros,posicoes,media)) / posicoes;
@@ -23,6 +25,21 @@ int main()
    printf("varianca: %f", varianca);
 
    return EXIT_SUCCESS;
+}
+
+void escreverImpares(float * numeros,int posicoes)
+{
+	float num = 0;
+	int contador;
+	while(contador<posicoes)
+	{
+		num++;
+		if((int)num % 2 != 0)
+		{
+			numeros[contador]=num;
+			contador++;
+		}
+	}
 }
 
 void imprimirValores(float * valores, int posicoes)
