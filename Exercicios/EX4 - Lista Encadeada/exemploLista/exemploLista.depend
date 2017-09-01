@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1504273997 source:c:\users\aluno\prg2\exercicios\ex4 - lista encadeada\exemplolista\lista_enc.c
+	<stdio.h>
+	<stdlib.h>
+	"lista_enc.h"
+	"no.h"
+
+1504273997 c:\users\aluno\prg2\exercicios\ex4 - lista encadeada\exemplolista\lista_enc.h
+	"no.h"
+
+1504273997 c:\users\aluno\prg2\exercicios\ex4 - lista encadeada\exemplolista\no.h
+
+1504273997 source:c:\users\aluno\prg2\exercicios\ex4 - lista encadeada\exemplolista\no.c
+	<stdio.h>
+	<stdlib.h>
+	"no.h"
+
+1504275590 source:c:\users\aluno\prg2\exercicios\ex4 - lista encadeada\exemplolista\main.c
+	<stdio.h>
+	<stdlib.h>
+	"lista_enc.h"
+	"no.h"
+
